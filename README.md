@@ -23,3 +23,10 @@ The project includes the following sections:
     `python run.py`
 
 3. Go to http://localhost:3001/
+
+
+### Installing
+Clone this GIT repository:
+```
+git clone https://github.com/huanghang111/Disaster-Response-Pipelines.git
+```
