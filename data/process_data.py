@@ -1,14 +1,10 @@
 """
-PREPROCESSING DATA
-Disaster Response Pipeline Project
-Udacity - Data Science Nanodegree
-
-Sample Script Execution:
+To implement the preprocessing step, excute:
 > python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db
 
 Arguments:
-    1) CSV file containing messages (disaster_messages.csv)
-    2) CSV file containing categories (disaster_categories.csv)
+    1) CSV file messages (disaster_messages.csv)
+    2) CSV file categories (disaster_categories.csv)
     3) SQLite destination database (DisasterResponse.db)
 """
 

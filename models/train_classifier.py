@@ -1,9 +1,5 @@
 """
-TRAIN CLASSIFIER
-Disaster Resoponse Project
-Udacity - Data Science Nanodegree
-
-How to run this script (Example)
+To implement the classifier training step, excute:
 > python train_classifier.py ../data/DisasterResponse.db classifier.pkl
 
 Arguments:
@@ -11,7 +7,6 @@ Arguments:
     2) pickle file name to save ML model
 """
 
-# import libraries
 import sys
 import pandas as pd
 import numpy as np
