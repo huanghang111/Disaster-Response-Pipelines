@@ -11,6 +11,18 @@ The project includes the following sections:
 2. Machine Learning Pipeline: to train a model able to classify text message in categories
 3. Web App: to show model results in real time. 
 
+*process_data.py: This code extracts data from both CSV files: messages.csv (containing message data) and categories.csv (classes of messages) and creates an SQLite database containing a merged and cleaned version of this data.
+*train_classifier.py: This code takes the SQLite database produced by process_data.py as an input and uses the data contained within it to train and tune a ML model for categorizing messages. The output is a pickle file containing the fitted model. 
+*run.py: This code runs and visualizes model, also provides the user interface.
+
+
+### Dependencies
+* Python 3.7.6
+* Machine Learning Libraries: NumPy, SciPy, Pandas, Sciki-Learn
+* Natural Language Process Libraries: NLTK
+* SQLlite Database Libraqries: SQLalchemy
+* Web App and Data Visualization: Flask, Plotly
+
 ## Executing Program:
 1. Run the following commands in the project's root directory to set up your database and model.
 

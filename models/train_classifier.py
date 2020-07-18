@@ -15,14 +15,14 @@ from sqlalchemy import create_engine
 import re
 import nltk
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from sklearn.pipeline import Pipeline, FeatureUnion
-from sklearn.metrics import fbeta_score, classification_report
+from sklearn.metrics import fbeta_score, classification_report, make_scorer
 from scipy.stats.mstats import gmean
 
 nltk.download(['punkt', 'wordnet', 'averaged_perceptron_tagger'])
@@ -117,7 +117,19 @@ def build_model():
         ('clf', MultiOutputClassifier(AdaBoostClassifier()))
     ])
 
-    return model
+    #return model
+    
+    #Use grid search to find better parameters
+    parameters = {
+            'features__text_pipeline__vect__ngram_range':  ((1, 1), (1, 2)),
+            'features__text_pipeline__vect__max_df':       (0.5, 0.75, 1.0),
+            'features__text_pipeline__vect__max_features': (None, 5000, 10000),
+            'features__text_pipeline__tfidf__use_idf':     (True, False),
+    }
+
+    scorer = make_scorer(multioutput_fscore,greater_is_better = True)
+    cv = GridSearchCV(model, param_grid = parameters, scoring = scorer,verbose = 2, n_jobs = -1)
+    return cv
 
 def multioutput_fscore(y_true,y_pred,beta=1):
     """
@@ -180,11 +192,11 @@ def evaluate_model(model, X_test, Y_test, category_names):
     # Extremely long output
     # Work In Progress: Save Output as Text file!
     
-    #Y_pred = pd.DataFrame(Y_pred, columns = Y_test.columns)
+    Y_pred = pd.DataFrame(Y_pred, columns = Y_test.columns)
     
-    #for column in Y_test.columns:
-    #    print('Model Performance with Category: {}'.format(column))
-    #    print(classification_report(Y_test[column],Y_pred[column]))
+    for column in Y_test.columns:
+       print('Model Performance with Category: {}'.format(column))
+       print(classification_report(Y_test[column],Y_pred[column]))
     pass
 
 

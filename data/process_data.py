@@ -44,6 +44,7 @@ def clean_data(df):
     for column in categories:
         categories[column] = categories[column].str[-1]
         categories[column] = categories[column].astype(np.int)
+        #print(categories[column])
     df = df.drop('categories',axis=1)
     df = pd.concat([df,categories],axis=1)
     #df = pd.concat([df,pd.get_dummies(df.genre)],axis=1)
@@ -60,7 +61,7 @@ def save_data(df, database_filename):
         database_filename -> database file (.db) destination path
     """
     engine = create_engine('sqlite:///'+ database_filename)
-    df.to_sql('df', engine, index=False)
+    df.to_sql('df', engine, index=False, if_exists = 'replace')
     pass  
 
 
